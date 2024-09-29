@@ -1,0 +1,39 @@
+services:
+  ubuntu:
+    image: ubuntu:latest
+    container_name: ubuntu_container
+    networks:
+      ItSec4You:
+        ipv4_address: 192.168.100.201
+    command: bash -c "apt-get update && apt-get install -y iproute2 iputils-ping && tail -f /dev/null"
+
+  debian:
+    image: debian:latest
+    container_name: debian_container
+    networks:
+      ItSec4You:
+        ipv4_address: 192.168.100.202
+    command: bash -c "apt-get update && apt-get install -y iproute2 iputils-ping && tail -f /dev/null"
+
+  fedora:
+    image: fedora:latest
+    container_name: fedora_container
+    networks:
+      ItSec4You:
+        ipv4_address: 192.168.100.203
+    command: bash -c "dnf install -y iproute iputils && tail -f /dev/null"
+
+  alpine:
+    image: alpine:latest
+    container_name: alpine_container
+    networks:
+      ItSec4You:
+        ipv4_address: 192.168.100.204
+    command: sh -c "apk update && apk add iproute2 iputils && tail -f /dev/null"
+
+networks:
+  ItSec4You:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24
